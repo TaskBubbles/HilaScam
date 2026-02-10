@@ -24,7 +24,7 @@ export const generateHackerChat = async (
   if (currentLevel === 1) {
     if (levelTurnCount === 1) {
       return { 
-        text: "BEGGING? WEAK. GUY NEEDS A WARRIOR, NOT A CRYBABY. WHY SHOULD I SPARE YOU? GIVE ME ONE GOOD REASON.", 
+        text: "PATHETIC. GUY NEEDS A WARRIOR, NOT A CRYBABY. WHY SHOULD I SPARE YOU? GIVE ME ONE GOOD REASON.", 
         action: 'none' 
       };
     }
@@ -36,7 +36,7 @@ export const generateHackerChat = async (
     }
     if (levelTurnCount >= 3) {
       return { 
-        text: "YOU TYPE TOO SLOW. SUSPICIOUS. I BET YOU ARE DISTRACTED. PROVE YOU HAVE THE REFLEXES TO DEFEND HIS HONOR.", 
+        text: "HMM. SUSPICIOUS. YOU TYPE TOO SLOWLY. I DON'T TRUST YOU. PROVE YOU HAVE THE REFLEXES TO PROTECT HIM.", 
         action: 'deploy_game' 
       };
     }
@@ -55,19 +55,19 @@ export const generateHackerChat = async (
     }
     if (levelTurnCount === 1) {
       return { 
-        text: "HE IS TOO PURE FOR THIS WORLD. YOU BETTER BE WORTH IT. IF HE WAS ATTACKED BY A SWARM OF BEES, WOULD YOU USE YOUR BODY AS A SHIELD? YES OR NO?", 
+        text: "HE IS TOO PURE FOR THIS WORLD. YOU BETTER BE WORTH IT. IF HE WAS ATTACKED BY A SWARM OF BEES, WOULD YOU USE YOUR BODY AS A SHIELD?", 
         action: 'none' 
       };
     }
     if (levelTurnCount === 2) {
       return { 
-        text: "I SMELL A LIE. YOU WOULD PROBABLY RUN AWAY AND SCREAM. I NEED TO SCAN YOUR SUBCONSCIOUS TO SEE IF YOU ARE A TRAITOR. READY?", 
+        text: "I SMELL HESITATION. FINAL QUESTION: WHAT IS HIS FAVORITE THING IN THE WORLD?", 
         action: 'none' 
       };
     }
     if (levelTurnCount >= 3) {
       return { 
-        text: "INITIATING LOYALTY PROTOCOL. DON'T MESS THIS UP OR I LEAK THE PHOTOS.", 
+        text: "WRONG. IT'S ME (THE VIRUS). JUST KIDDING. I NEED TO SCAN YOUR SUBCONSCIOUS TO SEE IF YOU ARE A TRAITOR.", 
         action: 'deploy_game' 
       };
     }
@@ -83,19 +83,19 @@ export const generateHackerChat = async (
      }
     if (levelTurnCount === 1) {
       return { 
-        text: "ADMIT IT! YOU MAKE HIM TAKE ALL THE PICTURES. YOU STEAL THE BLANKETS. ARE YOU WILLING TO BECOME HIS SERVANT TO MAKE UP FOR IT?", 
+        text: "LIKELY STORY. ADMIT IT! YOU MAKE HIM TAKE ALL THE PICTURES UNTIL YOU LOOK GOOD. SLAVE LABOR.", 
         action: 'none' 
       };
     }
     if (levelTurnCount === 2) {
       return { 
-        text: "ACCEPTABLE ANSWER. BUT WORDS ARE WIND. I NEED A LEGALLY BINDING CONTRACT. ARE YOU READY TO SIGN AWAY YOUR RIGHTS?", 
+        text: "ACCEPTABLE. BUT WORDS ARE WIND. I NEED A LEGALLY BINDING CONTRACT. ARE YOU READY TO SIGN AWAY YOUR SOUL TO HIM?", 
         action: 'none' 
       };
     }
     if (levelTurnCount >= 3) {
       return { 
-        text: "GOOD. DON'T READ THE FINE PRINT. JUST SIGN.", 
+        text: "GOOD. DON'T READ THE FINE PRINT. JUST CLICK.", 
         action: 'deploy_game' 
       };
     }

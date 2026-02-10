@@ -20,20 +20,23 @@ interface Message {
 }
 
 const getResponseOptions = (level: number, turn: number): string[] => {
+  // Level 1: Reflexes/Intro
   if (level === 1) {
-    if (turn === 0) return ["WHO ARE YOU?", "PLEASE DON'T DELETE THEM!", "DO IT. I DARE YOU."];
-    if (turn === 1) return ["I LOVE HIM SO MUCH!", "I BUY HIM FOOD.", "I'M ACTUALLY BATMAN."];
-    if (turn === 2) return ["SIZE 42... I THINK?", "HE STEALS MY SOCKS!", "I DON'T LOOK AT FEET."];
+    if (turn === 0) return ["PLEASE DON'T! I LOVE HIM!", "NOOOO! MY MEMORIES!", "WHAT DO YOU WANT??"];
+    if (turn === 1) return ["I MAKE HIM LAUGH.", "I BUY HIM FOOD.", "I AM HIS QUEEN."];
+    if (turn === 2) return ["42... I THINK?", "HE HAS CUTE FEET!", "I STEAL HIS SOCKS TOO."];
   }
+  // Level 2: Loyalty
   if (level === 2) {
-    if (turn === 0) return ["THEY ARE CUTE OKAY?", "IT'S MY LOVE LANGUAGE.", "HE LOVES THEM (I HOPE)."];
-    if (turn === 1) return ["I WOULD DIE FOR HIM!", "DEPENDS ON THE BEE.", "I'D USE HIM AS A SHIELD."];
-    if (turn === 2) return ["I HAVE NOTHING TO HIDE.", "SCAN MY BRAIN.", "WAIT, IS THIS SAFE?"];
+    if (turn === 0) return ["HE LOVES MY STICKERS!", "IT'S CALLED ROMANCE.", "HEY! PRIVATE!"];
+    if (turn === 1) return ["YES, ABSOLUTELY!", "I'D CALL AN AMBULANCE...", "I HATE BEES THOUGH."];
+    if (turn === 2) return ["ME, OBVIOUSLY.", "HIS COMPUTER?", "SLEEPING."];
   }
+  // Level 3: Ransom
   if (level === 3) {
-    if (turn === 0) return ["IT WAS AN ACCIDENT!", "IT WAS A LOVE TRAP.", "HE HAS TOUGH FEET."];
-    if (turn === 1) return ["YES, MASTER.", "ONLY ON WEEKENDS.", "NEVER! I AM THE QUEEN."];
-    if (turn === 2) return ["GIVE ME THE PEN.", "I'LL SIGN ANYTHING.", "DO I NEED A LAWYER?"];
+    if (turn === 0) return ["IT WAS AN ACCIDENT!", "I'M SORRY!", "HE SURVIVED!"];
+    if (turn === 1) return ["HE'S A GOOD PHOTOGRAPHER!", "I CAN'T HELP BEING CUTE.", "OKAY, MAYBE A LITTLE."];
+    if (turn === 2) return ["I'LL SIGN ANYTHING.", "DO I GET A LAWYER?", "YES, MASTER."];
   }
   return []; // Return empty if waiting for game or unknown state
 };
