@@ -31,7 +31,7 @@ export const TrollGame: React.FC<TrollGameProps> = ({ activeLevel, onSuccess }) 
     if (activeLevel !== 1 || status !== "IDLE") return;
 
     let lastTime = performance.now();
-    const speed = 2.8;
+    const speed = 3.5;
 
     const animate = (time: number) => {
       const delta = time - lastTime;
