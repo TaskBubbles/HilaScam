@@ -22,15 +22,15 @@ interface Message {
 const getResponseOptions = (level: number, turn: number): string[] => {
   // Level 1: Reflexes/Intro
   if (level === 1) {
-    if (turn === 0) return ["PLEASE DON'T! I LOVE HIM!", "NOOOO! MY MEMORIES!", "WHAT DO YOU WANT??"];
+    if (turn === 0) return ["PLEASE DON'T! I LOVE HIM!", "NOOOO! MY MEMORIES!", "NOT THE DICK PICS!!"];
     if (turn === 1) return ["I MAKE HIM LAUGH.", "I BUY HIM FOOD.", "I AM HIS QUEEN."];
-    if (turn === 2) return ["42... I THINK?", "HE HAS CUTE FEET!", "I STEAL HIS SOCKS TOO."];
+    if (turn === 2) return ["42... I THINK?", "mmmmfgh.. feet 🤤", "I STEAL HIS SOCKS TOO."];
   }
   // Level 2: Loyalty
   if (level === 2) {
     if (turn === 0) return ["HE LOVES MY STICKERS!", "IT'S CALLED ROMANCE.", "HEY! PRIVATE!"];
-    if (turn === 1) return ["YES, ABSOLUTELY!", "I'D CALL AN AMBULANCE...", "I HATE BEES THOUGH."];
-    if (turn === 2) return ["ME, OBVIOUSLY.", "HIS COMPUTER?", "SLEEPING."];
+    if (turn === 1) return ["YES, ABSOLUTELY!", "I'D USE HIM AS A SHIELD", "HE IS STRONGER THAN A FEW BEES."];
+    if (turn === 2) return ["ME, OBVIOUSLY.", "HIS COMPUTER?", "PROMPTING."];
   }
   // Level 3: Ransom
   if (level === 3) {
