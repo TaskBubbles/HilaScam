@@ -127,7 +127,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
 
   const handleGameSuccess = () => {
     setShowMinigameOverlay(false);
-    
+    setIsTyping(true);
     // Advance level
     const nextLevel = currentLevel + 1;
     setCurrentLevel(nextLevel);
