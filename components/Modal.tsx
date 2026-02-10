@@ -174,9 +174,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
                   />
                   {logsFinished && phase === 'logs' && (
                     <div className="mt-8 animate-pulse text-red-500 font-bold border-t border-red-900 pt-4">
-                      &gt; SYSTEM COMPROMISED.<br/>
-                      &gt; ALL DATA WILL BE ERASED.<br/>
-                      &gt; AWAITING INPUT...
+                      > SYSTEM COMPROMISED.<br/>
+                      > ALL DATA WILL BE ERASED.<br/>
+                      > AWAITING INPUT...
                     </div>
                   )}
                 </div>
