@@ -19,11 +19,29 @@ interface Message {
   actionDone?: boolean;
 }
 
+const getResponseOptions = (level: number, turn: number): string[] => {
+  if (level === 1) {
+    if (turn === 0) return ["WHO ARE YOU?", "PLEASE DON'T DELETE THEM!", "DO IT. I DARE YOU."];
+    if (turn === 1) return ["I LOVE HIM SO MUCH!", "I BUY HIM FOOD.", "I'M ACTUALLY BATMAN."];
+    if (turn === 2) return ["SIZE 42... I THINK?", "HE STEALS MY SOCKS!", "I DON'T LOOK AT FEET."];
+  }
+  if (level === 2) {
+    if (turn === 0) return ["THEY ARE CUTE OKAY?", "IT'S MY LOVE LANGUAGE.", "HE LOVES THEM (I HOPE)."];
+    if (turn === 1) return ["I WOULD DIE FOR HIM!", "DEPENDS ON THE BEE.", "I'D USE HIM AS A SHIELD."];
+    if (turn === 2) return ["I HAVE NOTHING TO HIDE.", "SCAN MY BRAIN.", "WAIT, IS THIS SAFE?"];
+  }
+  if (level === 3) {
+    if (turn === 0) return ["IT WAS AN ACCIDENT!", "IT WAS A LOVE TRAP.", "HE HAS TOUGH FEET."];
+    if (turn === 1) return ["YES, MASTER.", "ONLY ON WEEKENDS.", "NEVER! I AM THE QUEEN."];
+    if (turn === 2) return ["GIVE ME THE PEN.", "I'LL SIGN ANYTHING.", "DO I NEED A LAWYER?"];
+  }
+  return []; // Return empty if waiting for game or unknown state
+};
+
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText }) => {
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'hacker', text: "I'M ABOUT TO DELETE ALL YOUR PHOTOS WITH GUY. 😈 BEG FOR MERCY." }
   ]);
-  const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   
@@ -43,12 +61,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
     }
   }, [messages, isTyping, phase]);
 
-  const handleSendMessage = async (e?: React.FormEvent, overrideText?: string, isSystem?: boolean) => {
-    if (e) e.preventDefault();
-    const textToSend = overrideText || inputText;
-    
+  const handleSendMessage = async (textToSend: string, isSystem: boolean = false) => {
     if (!textToSend.trim()) return;
-    if (!overrideText) setInputText("");
     
     // Increment turn count for this level if it's a user message
     const currentTurns = isSystem ? levelTurnCount : levelTurnCount + 1;
@@ -92,7 +106,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
   useEffect(() => {
     if (currentLevel > 1) {
        const timer = setTimeout(() => {
-         handleSendMessage(undefined, `[SYSTEM ALERT: USER PASSED LEVEL ${currentLevel - 1}. INITIATING LEVEL ${currentLevel} PROTOCOLS.]`, true);
+         handleSendMessage(`[SYSTEM ALERT: USER PASSED LEVEL ${currentLevel - 1}. INITIATING LEVEL ${currentLevel} PROTOCOLS.]`, true);
        }, 500);
        return () => clearTimeout(timer);
     }
@@ -117,11 +131,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
     
     // Reset conversation turns for the new level so AI talks again
     setLevelTurnCount(0);
-    
-    // Note: handleSendMessage is triggered by the useEffect on currentLevel
   };
 
   if (!isOpen) return null;
+
+  const currentOptions = getResponseOptions(currentLevel, levelTurnCount);
+  const showOptions = !isTyping && !showMinigameOverlay && !isUnlocking && currentOptions.length > 0 && phase === 'chat';
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-0 md:p-6 lg:p-10 cursor-crosshair backdrop-blur-sm">
@@ -254,26 +269,26 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, logText })
               <div ref={chatBottomRef} />
             </div>
 
-            {/* Input Area */}
-            <form onSubmit={(e) => handleSendMessage(e)} className="p-3 bg-black border-t border-red-800 shrink-0 sticky bottom-0 z-20 pb-[env(safe-area-inset-bottom,20px)]">
-              <div className="flex gap-2">
-                <input 
-                  type="text" 
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type message..."
-                  className="flex-1 bg-gray-900 border border-red-800 text-white px-3 py-3 rounded text-sm md:text-base focus:outline-none focus:border-red-500 font-mono focus:ring-1 focus:ring-red-500 transition-all"
-                  disabled={isUnlocking || showMinigameOverlay}
-                />
-                <button 
-                  type="submit" 
-                  className="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded font-bold disabled:opacity-50 uppercase tracking-widest text-xs md:text-sm shadow-[0_0_10px_rgba(255,0,0,0.5)] transition-all"
-                  disabled={isUnlocking || showMinigameOverlay}
-                >
-                  Send
-                </button>
-              </div>
-            </form>
+            {/* Options / Input Area */}
+            <div className="p-3 bg-black border-t border-red-800 shrink-0 sticky bottom-0 z-20 pb-[env(safe-area-inset-bottom,20px)] min-h-[80px] flex items-center justify-center">
+              {showOptions ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+                  {currentOptions.map((opt, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSendMessage(opt)}
+                      className="bg-gray-900 hover:bg-red-900 border border-red-600 text-red-100 py-3 px-4 rounded text-xs md:text-sm font-mono uppercase tracking-wider shadow-[0_0_10px_rgba(255,0,0,0.2)] hover:shadow-[0_0_15px_rgba(255,0,0,0.5)] transition-all active:scale-95 text-center flex items-center justify-center"
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-gray-500 font-mono text-xs py-2 animate-pulse w-full">
+                  {isTyping ? "LIGMA_V2 IS TYPING..." : (isUnlocking ? "SYSTEM UNLOCKING..." : "AWAITING SYSTEM ACTION...")}
+                </div>
+              )}
+            </div>
           </div>
 
         </div>

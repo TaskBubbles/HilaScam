@@ -134,20 +134,56 @@ const App: React.FC = () => {
 
       {/* CHAOS & INFECTION */}
       {appState === AppState.INFECTING && (
-        <div className="h-[100dvh] flex flex-col items-center justify-center relative z-40 bg-black p-4">
-           <h1 className="text-5xl md:text-9xl font-scary text-red-600 mb-8 glitch-text text-center break-words w-full leading-none" data-text="FATAL ERROR">FATAL<br/>ERROR</h1>
-           <div className="w-full max-w-xl bg-gray-900 border-4 border-red-600 p-1 md:p-2">
-              <div className="bg-red-600 h-6 md:h-12 transition-all duration-75" style={{ width: `${progress}%` }}></div>
+        <div className="h-[100dvh] w-full flex flex-col items-center justify-center relative z-50 bg-black overflow-hidden cursor-none shake-extreme">
+           {/* Flashing Background Overlay */}
+           <div className="absolute inset-0 bg-white animate-[flash_0.05s_ease-in-out_infinite] opacity-10 pointer-events-none mix-blend-difference"></div>
+           
+           {/* Glitchy Background Image/Noise */}
+           <div className="absolute inset-0 opacity-20 pointer-events-none animate-pulse" style={{
+             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #ff0000 2px, #ff0000 4px)',
+             backgroundSize: '100% 4px'
+           }}></div>
+
+           {/* Main Text Layered for Glitch Effect */}
+           <div className="relative z-10 w-full">
+             <div className="absolute top-0 left-0 w-full h-full text-blue-500 opacity-60 animate-bounce -translate-x-2 -translate-y-2 font-scary text-7xl md:text-9xl text-center leading-none pointer-events-none blur-sm" aria-hidden="true">
+               FATAL<br/>ERROR
+             </div>
+             <div className="absolute top-0 left-0 w-full h-full text-green-500 opacity-60 animate-pulse translate-x-2 translate-y-2 font-scary text-7xl md:text-9xl text-center leading-none pointer-events-none blur-sm" aria-hidden="true">
+               FATAL<br/>ERROR
+             </div>
+             <h1 className="relative text-7xl md:text-9xl font-scary text-red-600 mb-8 glitch-text text-center break-words w-full leading-none scale-105" data-text="FATAL ERROR">
+               FATAL<br/>ERROR
+             </h1>
            </div>
-           <p className="mt-4 text-lg md:text-2xl font-bold bg-black text-red-500 px-4 text-center font-mono">
+
+           {/* Progress Bar with Corruption */}
+           <div className="w-full max-w-xl bg-gray-900 border-4 border-red-600 p-1 md:p-2 relative z-10 shadow-[0_0_50px_rgba(255,0,0,0.8)] mx-4">
+              <div className="bg-red-600 h-8 md:h-14 transition-all duration-75 relative overflow-hidden" style={{ width: `${progress}%` }}>
+                 <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.5)_50%,transparent_75%)] bg-[length:20px_20px] animate-[pulse_0.1s_infinite]"></div>
+              </div>
+           </div>
+           
+           <p className="mt-8 text-xl md:text-3xl font-bold bg-black text-red-500 px-6 py-4 text-center font-mono border-2 border-red-600 animate-pulse shadow-[0_0_30px_rgba(255,0,0,0.6)] z-20">
+             <span className="animate-[ping_0.5s_infinite] mr-3 inline-block">⚠️</span>
              INSTALLING: LIGMA_V2.EXE... {progress}%
            </p>
+
+           {/* Random Code Snippets Background */}
+           <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 opacity-40 font-mono text-xs text-red-800 overflow-hidden z-0">
+              <p className="break-all">{Array(10).fill(0).map(() => Math.random().toString(36).substring(2)).join('')}</p>
+              <div className="flex justify-between">
+                 <p className="rotate-90 origin-bottom-left">CORRUPT</p>
+                 <p className="-rotate-90 origin-bottom-right">SYSTEM_HALT</p>
+              </div>
+              <p className="text-right break-all">{Array(10).fill(0).map(() => Math.random().toString(16).substring(2)).join('')}</p>
+           </div>
         </div>
       )}
 
       {/* BACKGROUND CHAOS POPUPS */}
       {(appState === AppState.INFECTING || appState === AppState.LOCKED) && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-30">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-[60]">
           {popups.map(p => (
             <ChaosPopup key={p.id} {...p} message={p.msg} />
           ))}
